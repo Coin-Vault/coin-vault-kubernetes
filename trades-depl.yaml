@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trades-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tradingservice
+  template:
+    metadata:
+      labels:
+        app: tradingservice
+    spec:
+      containers:
+        - name: tradingservice
+          image: robfontys/coin-vault-microservice-trade:latest
