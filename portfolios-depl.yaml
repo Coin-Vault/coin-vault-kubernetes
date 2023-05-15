@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolios-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolioservice
+  template:
+    metadata:
+      labels:
+        app: portfolioservice
+    spec:
+      containers:
+        - name: portfolioservice
+          image: robfontys/coin-vault-microservice-portfolio:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolios-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: portfolioservice
+  ports: 
+  - name: portfolioservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
